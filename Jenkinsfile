@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Build') { 
             steps { 
-                julia krylov_CI.jl
+                julia "./krylov_CI.jl"
             }
         }
         // stage('Test'){
