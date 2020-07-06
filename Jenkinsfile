@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Test') { 
             steps { 
-                julia "./krylov_test.jl"
+                sh "./test.sh"
             }
         }
         // stage('Benchmark'){
