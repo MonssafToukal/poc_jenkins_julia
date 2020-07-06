@@ -1,24 +1,18 @@
-// pipeline { 
-//     agent any 
-//     options {
-//         skipStagesAfterUnstable()
-//     }
-//     stages {
-//         stage('Build') { 
-//             steps { 
-//                 sh "./build.sh"
-//             }
-//         }
-        // stage('Test'){
+pipeline { 
+    agent any 
+    options {
+        skipStagesAfterUnstable()
+    }
+    stages {
+        stage('Test') { 
+            steps { 
+                julia "./krylov_test.jl"
+            }
+        }
+        // stage('Benchmark'){
         //     steps {
-        //         sh 'make check'
-        //         junit 'reports/**/*.xml' 
+        //         sh "./build.sh"
         //     }
-        // }
-        // stage('Deploy') {
-        //     steps {
-        //         sh 'make publish'
-        //     }
-        // }
+        // }        
     }
 }
