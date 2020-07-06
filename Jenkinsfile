@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Test') { 
             steps { 
-                withEnv(['PATH+EXTRA=/usr/sbin:/usr/bin:/sbin:/bin']) {  
+                withEnv(['PATH+JULIA=/opt/julia-1.0.5/bin:$HOME/.local/bin']) {  
                     sh "./test.sh"
                 }
             }
