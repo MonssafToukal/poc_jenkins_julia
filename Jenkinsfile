@@ -4,17 +4,19 @@ pipeline {
         skipStagesAfterUnstable()
     }
     stages {
-        stage('Test') { 
-            steps { 
+        // stage('Test') { 
+        //     steps { 
+        //         withEnv(['PATH+JULIA=/opt/julia-1.0.5/bin:$HOME/.local/bin']) {  
+        //             sh "./test.sh"
+        //         }
+        //     }
+        // }
+        stage('Benchmark'){
+            steps {
                 withEnv(['PATH+JULIA=/opt/julia-1.0.5/bin:$HOME/.local/bin']) {  
-                    sh "./test.sh"
+                    julia "./krylov_CI.jl"
                 }
             }
-        }
-        // stage('Benchmark'){
-        //     steps {
-        //         sh "./build.sh"
-        //     }
-        // }        
+        }        
     }
 }
