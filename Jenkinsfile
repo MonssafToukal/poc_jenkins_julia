@@ -6,7 +6,9 @@ pipeline {
     stages {
         stage('Test') { 
             steps { 
-                sh "./test.sh"
+                withEnv(['PATH+EXTRA=/usr/sbin:/usr/bin:/sbin:/bin']) {  
+                    sh "./test.sh"
+                }
             }
         }
         // stage('Benchmark'){
