@@ -13,8 +13,8 @@ using JSON
 ufl_posdef = filter(p -> p.structure == "symmetric" && p.posDef == "yes" && p.type == "real" && p.rows ≤ 100, ssmc)
 fetch_ssmc(ufl_posdef, format="MM")
 
-commit = benchmarkpkg("Krylov")
 master = benchmarkpkg("Krylov", "master")
+commit = benchmarkpkg("Krylov")
 judgement = judge(commit, master)
 export_markdown("judgement.md", judgement)
 export_markdown("master.md", master)
