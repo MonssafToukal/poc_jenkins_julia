@@ -51,7 +51,7 @@ api = GitHub.DEFAULT_API
 my_username = "MonssafToukal"
 my_repo_name = "poc_jenkins_julia"
 my_params = Dict(:visibility => "all")
-my_repo = Repo(GitHub.gh_get_json(api, "/users/$(my_username)/repos"; params = my_params, auth=my_auth)[1])
+my_repo = Repo(GitHub.gh_get_json(api, "/users/$(my_username)/repos"; params = my_params, auth=myauth)[1])
 
 # Step 3: fetch all pull_requests
 
