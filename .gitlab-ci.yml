@@ -1,3 +1,4 @@
+image: julia:1.4
 
 main:
   script:
