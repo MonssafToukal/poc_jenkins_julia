@@ -12,8 +12,3 @@ main:
     - julia -e "using Pkg;Pkg.clone(pwd());"
     - cd ..
     - julia krylov_CI.jl
-
-failed_job:
-  script:
-    - curl "https://github.com?repo=${repo}&pr=${pr}&commit=${commit}"
-  when: on_failure
