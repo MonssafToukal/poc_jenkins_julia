@@ -1,0 +1,15 @@
+
+main:
+  script:
+    - git clone https://github.com/${org}/${repo}
+    - cd ${repo}
+    - git fetch origin pull/${pr}/head:pr/${pr}
+    - git checkout pr/${pr}
+    - julia -e "using Pkg;Pkg.clone(pwd());"
+    - cd ..
+    - julia krylov_CI.jl
+
+failed_job:
+  script:
+    - curl "https://github.com?repo=${repo}&pr=${pr}&commit=${commit}"
+  when: on_failure
