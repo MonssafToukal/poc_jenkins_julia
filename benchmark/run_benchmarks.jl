@@ -31,3 +31,21 @@ gist_json = JSON.parse("""
 myauth = GitHub.authenticate(ENV["GITHUB_AUTH"])
 posted_gist = create_gist(params = gist_json, auth = myauth)
 println(posted_gist.html_url)
+
+# Step 2: get correct repository:
+
+api = GitHub.DEFAULT_API
+my_username = "MonssafToukal"
+my_repo_name = "poc_jenkins_julia"
+my_params = Dict(:visibility => "all")
+my_repo = Repo(GitHub.gh_get_json(api, "/users/$(my_username)/repos"; params = my_params, auth=myauth)[1])
+
+# Step 3: fetch all pull_requests
+
+my_params = Dict(:sort => "popularity",
+                    :direction => "desc")
+my_pull_request = PullRequest(GitHub.gh_get_json(api, "/repos/$(my_username)/$(my_repo.name)/pulls"; params=my_params, auth=myauth)[1])
+
+# Step 4: Post Comment!
+
+comment = GitHub.create_comment(api, my_repo, my_pull_request, "The benchmarks can be found here: $(posted_gist.html_url)"; auth = myauth)

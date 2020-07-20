@@ -2,9 +2,9 @@
 main:
   script:
     - git clone https://github.com/MonssafToukal/poc_jenkins_julia
-    - cd ${repo}
-    - git fetch origin pull/${pr}/head:pr/${pr}
-    - git checkout pr/${pr}
+    - cd poc_jenkins_julia
+    - git fetch origin pull/14/head:pr/14
+    - git checkout pr/14
     - julia -e "using Pkg;Pkg.clone(pwd());"
     - cd ..
     - julia krylov_CI.jl
