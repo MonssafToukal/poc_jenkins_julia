@@ -1,7 +1,7 @@
 
 main:
   script:
-    - git clone https://github.com/${org}/${repo}
+    - git clone https://github.com/MonssafToukal/poc_jenkins_julia
     - cd ${repo}
     - git fetch origin pull/${pr}/head:pr/${pr}
     - git checkout pr/${pr}
