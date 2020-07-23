@@ -5,8 +5,6 @@ before_script:
 
 main:
   script:
-    - git clone https://github.com/MonssafToukal/poc_jenkins_julia
+    - git clone https://github.com/ProofOfConceptForJuliSmoothOptimizers/poc_jenkins_julia.git
     - cd poc_jenkins_julia
-    - git fetch origin pull/14/head:pr/14
-    - git checkout pr/14
-    - julia krylov_CI.jl
+    - julia krylov_test.jl
