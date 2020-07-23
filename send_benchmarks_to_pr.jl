@@ -14,7 +14,7 @@ function parse_commandline()
         "--org", "-o"
             help = "Name of GitHub Organization"
             arg_type = String
-            default = "JuliaSmoothOptimizers"
+            default = "  ProofOfConceptForJuliSmoothOptimizers  "
         "--repo", "-r"
             help = "The name of the repository on GitHub"
             arg_type = String
@@ -77,3 +77,5 @@ function main()
     comment = "The gist of the benchmarks can be found here: $(posted_gist.html_url)"
     post_comment_to_pr(org, repo_name, pullrequest_id, comment; auth = myauth)
 end
+
+main()
