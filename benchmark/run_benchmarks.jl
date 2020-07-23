@@ -26,8 +26,7 @@ gist_json = JSON.parse("""
             }
         }
     }""")
-
-# Need to add GITHUB_AUTH to your .bashrc
-myauth = GitHub.authenticate(ENV["GITHUB_AUTH"])
-posted_gist = create_gist(params = gist_json, auth = myauth)
-println(posted_gist.html_url)
+    
+open("gist.json", "w") do f
+    JSON.print(f, gist_json)
+end
