@@ -14,12 +14,12 @@ function parse_commandline()
         "--org", "-o"
             help = "Name of GitHub Organization"
             arg_type = String
-            default = "  ProofOfConceptForJuliSmoothOptimizers  "
+            default = "ProofOfConceptForJuliSmoothOptimizers"
         "--repo", "-r"
             help = "The name of the repository on GitHub"
             arg_type = String
             required = true
-        "--pullrequest", "-pr"
+        "--pullrequest", "-p"
             help = "An integer that corresponds to the pull request"
             required = true
             arg_type = Int
@@ -34,28 +34,25 @@ end
 
 function get_repo(api::GitHub.GitHubWebAPI, org::String, repo_name::String; kwargs...)
     my_params = Dict(:visibility => "all")
-    
-    return Repo(GitHub.gh_get_json(api, "/org/$(org)/repos/$(repo_name)"; params = my_params, kwargs...)[1])
+    # return GitHub.repo(api, repo; params = my_params, kwargs...)
+    return Repo(GitHub.gh_get_json(api, "/repos/$(org)/$(repo_name)"; params = my_params, kwargs...))
 end
 
-function get_pull_request(api::GitHub.GitHubWebAPI, org::String, repo_name::String, pullrequest_id; kwargs...)
+function get_pull_request(api::GitHub.GitHubWebAPI, org::String, repo::Repo, pullrequest_id; kwargs...)
     my_params = Dict(:sort => "popularity",
                     :direction => "desc")
-    #  GitHub.pull_request(api, repo, pullrequest_id; kwargs...)
-     pull_request = PullRequest(GitHub.gh_get_json(api, "/repos/$(org)/$(repo_name)/pulls/$(pullrequest_id)"; params=my_params, kwargs...))
-     return pull_request
+    pull_request = PullRequest(GitHub.gh_get_json(api, "/repos/$(org)/$(repo.name)/pulls/$(pullrequest_id)"; params=my_params, kwargs...))
+    return pull_request
 
 end
 
 function post_comment_to_pr(org::String, repo_name::String, pullrequest_id::Int, comment::String; kwargs...)
     api = GitHub.DEFAULT_API
     repo = get_repo(api, org, repo_name; kwargs...)
-    pull_request = get_pull_request(api, org, repo.name, pullrequest_id; kwargs...)
+    pull_request = get_pull_request(api, org, repo, pullrequest_id; kwargs...)
     GitHub.create_comment(api, repo, pull_request, comment; kwargs...)
 
 end
-api = GitHub.DEFAULT_API
-println(typeof(api))
 
 function main()
     # parse the arguments first: 
@@ -74,7 +71,7 @@ function main()
     end
     posted_gist = create_gist(params = gist, auth = myauth)
     println(posted_gist.html_url)
-    comment = "The gist of the benchmarks can be found here: $(posted_gist.html_url)"
+    comment = "The gist of the benchmarks can be found here: $(posted_gist.html_url)"    
     post_comment_to_pr(org, repo_name, pullrequest_id, comment; auth = myauth)
 end
 
