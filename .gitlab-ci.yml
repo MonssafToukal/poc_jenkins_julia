@@ -8,7 +8,7 @@ benchmarking:
     - git clone https://github.com/ProofOfConceptForJuliSmoothOptimizers/poc_jenkins_julia.git
     - cd poc_jenkins_julia
     - julia krylov_CI.jl
-    - julia send_benchmarks_to_pr.jl -r poc_jenkins_julia -p 15
+    - julia send_benchmarks_to_pr.jl -r poc_jenkins_julia -p 16
 
 test:
   script:
