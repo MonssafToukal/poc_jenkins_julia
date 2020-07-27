@@ -25,7 +25,7 @@ function parse_commandline()
             required = true
             arg_type = Int
         "--gist", "-g"
-            help = "specify this argument if you want to send a gist to the pullrequest"
+            help = "specify this argument if you want to send a gist to the pullrequest. If this option is not specified, you must specify a comment"
             action = :store_true
 
         "--comment", "-c"
