@@ -9,7 +9,7 @@ using JSON
 
 DEFAULT_GIST_FILE_PATH = "./gist.json"
 
-function parse_commandline(myauth)
+function parse_commandline()
     s = ArgParseSettings()
     @add_arg_table! s begin
         "--org", "-o"
@@ -24,10 +24,14 @@ function parse_commandline(myauth)
             help = "An integer that corresponds to the pull request"
             required = true
             arg_type = Int
+        "--gist", "-g"
+            help = "specify this argument if you want to send a gist to the pullrequest"
+            action = :store_true
+
         "--comment", "-c"
             help = "Comment to post on the pull request"
             arg_type = String
-            default = "The gist of the benchmarks can be found here: $(create_gist_from_json_file(myauth).html_url)"
+            required = false
     end
 
     return parse_args(s, as_symbols=true)
@@ -70,11 +74,13 @@ function main()
     # Need to add GITHUB_AUTH to your .bashrc
     myauth = GitHub.authenticate(ENV["GITHUB_AUTH"])
     # parse the arguments: 
-    parsed_args = parse_commandline(myauth)
+    parsed_args = parse_commandline()
     org = parsed_args[:org]
     repo_name = parsed_args[:repo]
     pullrequest_id = parsed_args[:pullrequest]
-    comment = parsed_args[:comment]
+    gist_flag = parsed_args[:gist]
+    println(gist_flag)
+    comment = gist_flag ? "The gist of the benchmarks can be found here: $(create_gist_from_json_file(myauth).html_url)" : parsed_args[:comment]
     post_comment_to_pr(org, repo_name, pullrequest_id, comment; auth = myauth)
 end
 
