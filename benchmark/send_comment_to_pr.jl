@@ -1,5 +1,5 @@
 using Pkg
-Pkg.activate(".")
+Pkg.activate("./benchmark/")
 Pkg.instantiate()
 
 using ArgParse
