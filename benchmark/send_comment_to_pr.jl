@@ -1,6 +1,5 @@
 using Pkg
-Pkg.add("ArgParse")
-Pkg.activate("env/")
+Pkg.activate(".")
 
 using ArgParse
 using Git
