@@ -1,4 +1,5 @@
 using Pkg
+Pkg.add("ArgParse")
 Pkg.activate("env/")
 
 using ArgParse
