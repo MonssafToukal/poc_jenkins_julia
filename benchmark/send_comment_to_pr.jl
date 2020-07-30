@@ -1,5 +1,6 @@
 using Pkg
-Pkg.activate("env/")
+Pkg.activate("./benchmark/")
+Pkg.instantiate()
 
 using ArgParse
 using Git
