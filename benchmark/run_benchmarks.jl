@@ -1,7 +1,7 @@
 using GitHub, JSON, PkgBenchmark
 
 print("benchmarking master: ")
-master = benchmarkpkg("Krylov", "master")
+master = benchmarkpkg("Krylov", "origin/master")
 print("benchmarking commit:")
 commit = benchmarkpkg("Krylov")  # current state of repository
 print("judging: ")
