@@ -1,6 +1,5 @@
 using GitHub, JSON, PkgBenchmark
 
-print("load path 3: $(Base.load_path())")
 print("benchmarking master: ")
 master = benchmarkpkg("Krylov", "master")
 print("benchmarking commit:")

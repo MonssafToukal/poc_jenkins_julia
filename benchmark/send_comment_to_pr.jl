@@ -82,6 +82,9 @@ function main()
     gist_flag = parsed_args[:gist]
     comment = gist_flag ? "The gist of the benchmarks can be found here: $(create_gist_from_json_file(myauth).html_url)" : parsed_args[:comment]
     post_comment_to_pr(org, repo_name, pullrequest_id, comment; auth = myauth)
+    # delete gist after:
+    rm(DEFAULT_GIST_FILE_PATH)
+
 end
 
 main()
