@@ -1,9 +1,9 @@
 using GitHub, JSON, PkgBenchmark
 
-print("benchmarking master: ")
-master = benchmarkpkg("Krylov", "origin/master")
 print("benchmarking commit:")
 commit = benchmarkpkg("Krylov")  # current state of repository
+print("benchmarking master: ")
+master = benchmarkpkg("Krylov", "origin/master")
 print("judging: ")
 judgement = judge(commit, master)
 export_markdown("judgement.md", judgement)
