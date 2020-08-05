@@ -60,7 +60,7 @@ node {
     }
     stage("sending comment") {
         steps {
-            julia --project=./benchmark/ ./benchmark/send_comment_to_pr.jl --org $org --repo $repo --pullrequest $pullrequest -c "Starting Benchmark Build!"
+            julia ./benchmark/send_comment_to_pr.jl --org $org --repo $repo --pullrequest $pullrequest -c "Starting Benchmark Build!"
         }
     }
     stage("benchmarking") {
