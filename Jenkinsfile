@@ -7,7 +7,7 @@ node {
     [
         [
             key: 'action', 
-            value: '$.action'
+            value: '$.action',
             expressionType: 'JSONPath', //Optional, defaults to JSONPath
             regexpFilter: '[^(created)]', //Optional, defaults to empty string
             defaultValue: '' //Optional, defaults to empty string
