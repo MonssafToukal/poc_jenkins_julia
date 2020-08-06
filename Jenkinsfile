@@ -1,5 +1,8 @@
 pipeline {
   agent any
+  environment {
+    julia = "/opt/julia/bin/julia"
+  }
   triggers {
     GenericTrigger(
      genericVariables: [
