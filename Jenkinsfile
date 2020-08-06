@@ -1,10 +1,8 @@
-node {
- properties([
-  pipelineTriggers([
-   [
-    $class: 'GenericTrigger',
-    genericVariables: 
-    [
+pipeline {
+  agent any
+  triggers {
+    GenericTrigger(
+     genericVariables: [
         [
             key: 'action', 
             value: '$.action',
@@ -40,43 +38,26 @@ node {
             regexpFilter: '', //Optional, defaults to empty string
             defaultValue: '' //Optional, defaults to empty string
         ]
-    ],
-    genericHeaderVariables: [
-     [key: 'X-GitHub-Event', regexpFilter: '']
-    ],
-    printContributedVariables: true,
-    printPostContent: true,
-    regexpFilterText: '^?[rR]un[Bb]enchmarks? ?$',
-    regexpFilterExpression: ''
-   ]
-  ])
- ])
+     ],
 
- stages("build") {
-    stage("init") {
-        steps {
-            echo " Path of Jenkins: ${PATH}"
-        }
+     causeString: 'Triggered on $comment',
+
+     token: 'qaz123',
+
+     printContributedVariables: true,
+     printPostContent: true,
+
+     silentResponse: false,
+
+     regexpFilterText: '$comment',
+     regexpFilterExpression: '?[rR]un[bB]enchmarks? ?'
+    )
+  }
+  stages {
+    stage('print comment') {
+      steps {
+        sh "echo $comment"
+      }
     }
-    stage("sending comment") {
-        steps {
-            julia --project=./benchmark/ ./benchmark/send_comment_to_pr.jl --org $org --repo $repo --pullrequest $pullrequest -c "Starting Benchmark Build!"
-        }
-    }
-    stage("benchmarking") {
-        steps {
-            julia ./benchmark/krylov_CI.jl
-            echo "BUILD SUCCESS"
-        }
-    }
- }
- post {
-    success {
-        julia ./benchmark/send_comment_to_pr.jl --org $org --repo $repo --pullrequest $pullrequest --gist
-    }
-    failure {
-        julia ./benchmark/send_comment_to_pr.jl --org $org --repo $repo --pullrequest $pullrequest -c "Benchmarks failed..."
-    }
- }
+  }
 }
-
