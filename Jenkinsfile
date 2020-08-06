@@ -56,7 +56,7 @@ pipeline {
   stages {
     stage('print comment') {
       steps {
-        sh "echo $comment"
+        julia "benchmark/krylov_CI.jl"
       }
     }
   }
