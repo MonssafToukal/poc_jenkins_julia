@@ -59,7 +59,7 @@ pipeline {
   stages {
     stage('run benchmarks') {
       steps {
-        sh "julia benchmark/krylov_CI.jl"
+        sh -x "julia benchmark/krylov_CI.jl"
       }
     }
   }
