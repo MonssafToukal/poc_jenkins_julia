@@ -42,7 +42,7 @@ pipeline {
 
      causeString: 'Triggered on $comment',
 
-     token: 'qaz123',
+     token: 'foobar',
 
      printContributedVariables: true,
      printPostContent: true,
@@ -50,7 +50,7 @@ pipeline {
      silentResponse: false,
 
      regexpFilterText: '$comment',
-     regexpFilterExpression: "runbenchmarks"
+     regexpFilterExpression: 'runbenchmarks'
     )
   }
   stages {
