@@ -57,10 +57,21 @@ pipeline {
     )
   }
   stages {
-    stage('print comment') {
+    stage('run benchmarks') {
       steps {
-        julia "benchmark/krylov_CI.jl"
+        sh "julia benchmark/krylov_CI.jl"
       }
+    }
+  }
+  post {
+    success {
+      echo "BUILD SUCCESS"
+    }
+    failure {
+      echo "BUILD FAILURE"
+    }
+    cleanup {
+      sh "rm -f gist.json"
     }
   }
 }
