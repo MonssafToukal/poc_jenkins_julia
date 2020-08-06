@@ -50,7 +50,7 @@ pipeline {
      silentResponse: false,
 
      regexpFilterText: '$comment',
-     regexpFilterExpression: '?[rR]un[bB]enchmarks? ?'
+     regexpFilterExpression: ?[rR]un[bB]enchmarks? ?
     )
   }
   stages {
