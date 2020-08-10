@@ -63,7 +63,9 @@ pipeline {
     stage('checkout on new branch') {
       steps {
         sh '''
-        git checkout -b benchmark
+        git fetch --no-tags origin '+refs/heads/master:refs/remotes/origin/master'
+        git branch benchmark
+        git checkout benchmark
         '''
       }
     }
@@ -86,6 +88,7 @@ pipeline {
     cleanup {
 
       sh '''
+      git checkout master
       git branch -D benchmark
       rm -f gist.json
       '''
