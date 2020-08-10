@@ -60,7 +60,7 @@ pipeline {
     stage('checkout on new branch') {
       steps {
         sh '''
-        git checkout -D benchmark
+        git branch -D benchmark
         git checkout -b benchmark
         '''
       }
