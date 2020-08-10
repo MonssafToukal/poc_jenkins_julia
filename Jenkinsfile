@@ -60,7 +60,6 @@ pipeline {
     stage('checkout on new branch') {
       steps {
         sh '''
-        git branch -D benchmark
         git checkout -b benchmark
         '''
       }
@@ -82,7 +81,11 @@ pipeline {
       echo "BUILD FAILURE"
     }
     cleanup {
-      sh "rm -f gist.json"
+
+      sh '''
+      git branch -D benchmark
+      rm -f gist.json
+      '''
     }
   }
 }
