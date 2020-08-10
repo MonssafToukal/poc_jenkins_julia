@@ -3,6 +3,9 @@ pipeline {
   environment {
     julia = "/opt/julia/bin/julia"
   }
+  options {
+    skipDefaultCheckout: true
+  }
   triggers {
     GenericTrigger(
      genericVariables: [
