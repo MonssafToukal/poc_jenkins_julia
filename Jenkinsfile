@@ -4,7 +4,7 @@ pipeline {
     julia = "/opt/julia/bin/julia"
   }
   options {
-    skipDefaultCheckout: true
+    skipDefaultCheckout true
   }
   triggers {
     GenericTrigger(
