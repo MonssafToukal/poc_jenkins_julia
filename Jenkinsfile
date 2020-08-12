@@ -73,6 +73,7 @@ pipeline {
       steps {
         sh '''
         set -x
+        sh 'julia benchmark/send_comment_to_pr.jl -o $org -r $repo -p $pullrequest -c "Starting benchmarks!"'
         julia benchmark/krylov_CI.jl
         '''
       }
@@ -81,6 +82,7 @@ pipeline {
   post {
     success {
       echo "BUILD SUCCESS"
+      sh 'julia benchmark/send_comment_to_pr.jl -o $org -r $repo -p $pullrequest -g'
     }
     failure {
       echo "BUILD FAILURE"
