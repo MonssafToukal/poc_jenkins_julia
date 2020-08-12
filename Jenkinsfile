@@ -86,6 +86,7 @@ pipeline {
     }
     failure {
       echo "BUILD FAILURE"
+      sh 'julia benchmark/send_comment_to_pr.jl -o $org -r $repo -p $pullrequest -c "An error has occured while running the benchmarks"'
     }
     cleanup {
 
