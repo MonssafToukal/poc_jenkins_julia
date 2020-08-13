@@ -90,7 +90,7 @@ pipeline {
     }
     cleanup {
       sh 'printenv'
-      sh 'git checkout' + BRANCH_NAME
+      sh 'git checkout ' + BRANCH_NAME
       sh '''
       git branch -D benchmark
       git clean -fd
