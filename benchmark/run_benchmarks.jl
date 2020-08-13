@@ -1,10 +1,11 @@
 using Pkg
 println("pwd: $(pwd())")
+cd("./benchmark/")
+println("pwd: $(pwd())")
 Pkg.activate(".")
 Pkg.instantiate()
-Pkg.add("..")
+Pkg.add(PackageSpec(path="../")) 
 
-exit()
 using GitHub, JSON, PkgBenchmark
 
 print("benchmarking commit:")
