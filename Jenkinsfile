@@ -62,10 +62,10 @@ pipeline {
   stages {
     stage('checkout on new branch') {
       steps {
+        sh 'git checkout ' + BRANCH_NAME
         sh '''
         git fetch --no-tags origin '+refs/heads/master:refs/remotes/origin/master'
-        git branch benchmark
-        git checkout benchmark
+        git checkout -b benchmark
         '''
       }
     }
