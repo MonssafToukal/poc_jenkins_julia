@@ -1,10 +1,9 @@
 using Pkg
-println("pwd: $(pwd())")
-cd("./benchmark/")
-println("pwd: $(pwd())")
-Pkg.activate(".")
+bmark_dir = @__DIR__
+print(bmark_dir)
+Pkg.activate(bmark_dir)
+Pkg.develop(PackageSpec(url=joinpath(bmark_dir, ".."))) 
 Pkg.instantiate()
-Pkg.add(PackageSpec(path="../")) 
 
 using GitHub, JSON, PkgBenchmark
 
