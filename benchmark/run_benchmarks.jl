@@ -1,3 +1,10 @@
+using Pkg
+println("pwd: $(pwd())")
+Pkg.activate(".")
+Pkg.instantiate()
+Pkg.add("..")
+
+exit()
 using GitHub, JSON, PkgBenchmark
 
 print("benchmarking commit:")
