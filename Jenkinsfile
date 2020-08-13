@@ -60,9 +60,12 @@ pipeline {
     )
   }
   stages {
+    stage('pull from repository') {
+      sh 'git checkout ' + BRANCH_NAME
+      sh 'git pull'
+    }
     stage('checkout on new branch') {
       steps {
-        sh 'git checkout ' + BRANCH_NAME
         sh '''
         git fetch --no-tags origin '+refs/heads/master:refs/remotes/origin/master'
         git checkout -b benchmark
