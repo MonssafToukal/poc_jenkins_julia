@@ -48,7 +48,7 @@ pipeline {
 
      causeString: 'Triggered on $comment',
 
-     token: 'foobar',
+     token: '$repo',
 
      printContributedVariables: true,
      printPostContent: true,
@@ -93,7 +93,7 @@ pipeline {
       sh '''
       git checkout master
       git branch -D benchmark
-      rm -f gist.json
+      git clean -fd
       '''
     }
   }
