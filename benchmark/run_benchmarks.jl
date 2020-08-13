@@ -1,9 +1,16 @@
+using Pkg
+bmark_dir = @__DIR__
+print(bmark_dir)
+Pkg.activate(bmark_dir)
+Pkg.develop(PackageSpec(url=joinpath(bmark_dir, ".."))) 
+Pkg.instantiate()
+
 using GitHub, JSON, PkgBenchmark
 
 print("benchmarking commit:")
 commit = benchmarkpkg("Krylov")  # current state of repository
 print("benchmarking master: ")
-master = benchmarkpkg("Krylov", "origin/master")
+master = benchmarkpkg("Krylov", "master")
 print("judging: ")
 judgement = judge(commit, master)
 export_markdown("judgement.md", judgement)

@@ -1,5 +1,11 @@
 pipeline {
   agent any
+  environment {
+    julia = "/opt/julia/bin/julia"
+  }
+  options {
+    skipDefaultCheckout true
+  }
   triggers {
     GenericTrigger(
      genericVariables: [
@@ -42,7 +48,7 @@ pipeline {
 
      causeString: 'Triggered on $comment',
 
-     token: 'qaz123',
+     token: 'poc_jenkins_julia',
 
      printContributedVariables: true,
      printPostContent: true,
@@ -50,14 +56,50 @@ pipeline {
      silentResponse: false,
 
      regexpFilterText: '$comment',
-     regexpFilterExpression: '?[rR]un[bB]enchmarks? ?' + BRANCH_NAME
+     regexpFilterExpression: 'runbenchmarks'
     )
   }
   stages {
-    stage('print comment') {
+    stage('pull from repository') {
       steps {
-        sh "echo $comment"
+        sh 'git checkout ' + BRANCH_NAME
+        sh 'git pull'
       }
+    }
+    stage('checkout on new branch') {
+      steps {
+        sh '''
+        git fetch --no-tags origin '+refs/heads/master:refs/remotes/origin/master'
+        git checkout -b benchmark
+        '''
+      }
+    }
+    stage('run benchmarks') {
+      steps {
+        sh '''
+        set -x
+        julia benchmark/send_comment_to_pr.jl -o $org -r $repo -p $pullrequest -c "Starting benchmarks!"
+        julia benchmark/run_benchmarks.jl
+        '''
+      }
+    }
+  }
+  post {
+    success {
+      echo "BUILD SUCCESS"
+      sh 'julia benchmark/send_comment_to_pr.jl -o $org -r $repo -p $pullrequest -g'
+    }
+    failure {
+      echo "BUILD FAILURE"
+      sh 'julia benchmark/send_comment_to_pr.jl -o $org -r $repo -p $pullrequest -c "An error has occured while running the benchmarks"'
+    }
+    cleanup {
+      sh 'printenv'
+      sh 'git checkout ' + BRANCH_NAME
+      sh '''
+      git branch -D benchmark
+      git clean -fd
+      '''
     }
   }
 }

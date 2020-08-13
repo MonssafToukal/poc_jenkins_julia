@@ -1,9 +1,9 @@
 using Pkg
 Pkg.activate("./benchmark/")
 
-
-Pkg.pin(PackageSpec(name="LearnBase", version="0.3"))
+pwd()
 Pkg.develop(PackageSpec(path="."))
+Pkg.pin(PackageSpec(name="LearnBase", version="0.3"))
 Pkg.update()
 
 using SuiteSparseMatrixCollection
