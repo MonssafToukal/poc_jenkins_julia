@@ -48,7 +48,7 @@ pipeline {
 
      causeString: 'Triggered on $comment',
 
-     token: '$repo',
+     token: 'poc_jenkins_julia',
 
      printContributedVariables: true,
      printPostContent: true,
