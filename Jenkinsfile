@@ -63,7 +63,7 @@ pipeline {
     stage('pull from repository') {
       steps {
         sh 'git checkout ' + BRANCH_NAME
-        // sh 'git pull'
+        sh 'git pull'
       }
     }
     stage('checkout on new branch') {
